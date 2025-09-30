@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Presupuestos - Sirius SPA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <div class="card shadow">
+            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">Presupuestos - Sirius SPA</h3>
+                <button class="btn btn-light" onclick="window.location.href='form.html'">
+                    <i class="bi bi-plus-circle"></i> Nuevo Presupuesto
+                </button>
+            </div>
+            <div class="card-body">
+                <!-- Filtros -->
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="buscar" placeholder="Buscar presupuesto...">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="filtroEstado">
+                            <option value="">Todos los estados</option>
+                            <option value="borrador">Borrador</option>
+                            <option value="enviado">Enviado</option>
+                            <option value="aprobado">Aprobado</option>
+                            <option value="rechazado">Rechazado</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="filtroCategoria">
+                            <option value="">Todas las categorías</option>
+                            <option value="electricas">Instalaciones Eléctricas</option>
+                            <option value="construccion">Construcción</option>
+                            <option value="incendios">Detección de Incendios</option>
+                            <option value="programacion">Programación</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-secondary w-100" onclick="limpiarFiltros()">
+                            <i class="bi bi-x-circle"></i> Limpiar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Resumen -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-secondary text-white">
+                            <div class="card-body text-center">
+                                <h5>Borradores</h5>
+                                <h2>3</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h5>Enviados</h5>
+                                <h2>5</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h5>Aprobados</h5>
+                                <h2>8</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body text-center">
+                                <h5>Rechazados</h5>
+                                <h2>2</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla -->
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Cliente</th>
+                                <th>Categoría</th>
+                                <th>Fecha Emisión</th>
+                                <th>Válido Hasta</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPresupuestos">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Eliminar -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro de eliminar este presupuesto?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmarEliminar()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const presupuestos = [
+            { 
+                id: 1, 
+                codigo: 'PRES-001', 
+                nombre: 'Instalación Eléctrica Completa', 
+                cliente: 'Constructora Los Andes', 
+                categoria: 'electricas',
+                fechaEmision: '2025-09-15',
+                fechaVencimiento: '2025-10-15',
+                total: 8500000,
+                estado: 'aprobado'
+            },
+            { 
+                id: 2, 
+                codigo: 'PRES-002', 
+                nombre: 'Construcción Ampliación Bodega', 
+                cliente: 'Inmobiliaria Horizonte', 
+                categoria: 'construccion',
+                fechaEmision: '2025-09-20',
+                fechaVencimiento: '2025-10-20',
+                total: 28000000,
+                estado: 'enviado'
+            },
+            { 
+                id: 3, 
+                codigo: 'PRES-003', 
+                nombre: 'Sistema Detección Incendios', 
+                cliente: 'Municipalidad de Santiago', 
+                categoria: 'incendios',
+                fechaEmision: '2025-09-22',
+                fechaVencimiento: '2025-10-22',
+                total: 12000000,
+                estado: 'enviado'
+            },
+            { 
+                id: 4, 
+                codigo: 'PRES-004', 
+                nombre: 'Software Gestión de Inventario', 
+                cliente: 'Empresa Minera del Norte', 
+                categoria: 'programacion',
+                fechaEmision: '2025-09-18',
+                fechaVencimiento: '2025-10-18',
+                total: 6500000,
+                estado: 'aprobado'
+            },
+            { 
+                id: 5, 
+                codigo: 'PRES-005', 
+                nombre: 'Remodelación Eléctrica Hotel', 
+                cliente: 'Hotel Plaza Mayor', 
+                categoria: 'electricas',
+                fechaEmision: '2025-09-10',
+                fechaVencimiento: '2025-10-10',
+                total: 15000000,
+                estado: 'aprobado'
+            },
+            { 
+                id: 6, 
+                codigo: 'PRES-006', 
+                nombre: 'Construcción Casa 2 Pisos', 
+                cliente: 'Inmobiliaria Horizonte', 
+                categoria: 'construccion',
+                fechaEmision: '2025-09-25',
+                fechaVencimiento: '2025-10-25',
+                total: 45000000,
+                estado: 'borrador'
+            },
+            { 
+                id: 7, 
+                codigo: 'PRES-007', 
+                nombre: 'Mantención Red de Incendios', 
+                cliente: 'Hotel Plaza Mayor', 
+                categoria: 'incendios',
+                fechaEmision: '2025-09-12',
+                fechaVencimiento: '2025-09-27',
+                total: 850000,
+                estado: 'rechazado'
+            }
+        ];
+
+        let presupuestoEliminar = null;
+
+        const nombresCategorias = {
+            'electricas': 'Eléctricas',
+            'construccion': 'Construcción',
+            'incendios': 'Incendios',
+            'programacion': 'Programación'
+        };
+
+        const coloresCategorias = {
+            'electricas': 'bg-warning',
+            'construccion': 'bg-secondary',
+            'incendios': 'bg-danger',
+            'programacion': 'bg-info'
+        };
+
+        const coloresEstado = {
+            'borrador': 'bg-secondary',
+            'enviado': 'bg-primary',
+            'aprobado': 'bg-success',
+            'rechazado': 'bg-danger'
+        };
+
+        const nombresEstado = {
+            'borrador': 'Borrador',
+            'enviado': 'Enviado',
+            'aprobado': 'Aprobado',
+            'rechazado': 'Rechazado'
+        };
+
+        function cargarPresupuestos() {
+            const tbody = document.getElementById('tablaPresupuestos');
+            tbody.innerHTML = '';
+
+            presupuestos.forEach(pres => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${pres.codigo}</strong></td>
+                    <td>${pres.nombre}</td>
+                    <td>${pres.cliente}</td>
+                    <td><span class="badge ${coloresCategorias[pres.categoria]}">${nombresCategorias[pres.categoria]}</span></td>
+                    <td>${pres.fechaEmision}</td>
+                    <td>${pres.fechaVencimiento}</td>
+                    <td><strong>$${pres.total.toLocaleString('es-CL')}</strong></td>
+                    <td><span class="badge ${coloresEstado[pres.estado]}">${nombresEstado[pres.estado]}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="verDetalle(${pres.id})" title="Ver detalle">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-primary" onclick="editarPresupuesto(${pres.id})" title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="eliminarPresupuesto(${pres.id})" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function verDetalle(id) {
+            window.location.href = `detalle.html?id=${id}`;
+        }
+
+        function editarPresupuesto(id) {
+            window.location.href = `form.html?id=${id}`;
+        }
+
+        function eliminarPresupuesto(id) {
+            presupuestoEliminar = id;
+            const modal = new bootstrap.Modal(document.getElementById('modalEliminar'));
+            modal.show();
+        }
+
+        function confirmarEliminar() {
+            alert(`Presupuesto ${presupuestoEliminar} eliminado`);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalEliminar'));
+            modal.hide();
+        }
+
+        function limpiarFiltros() {
+            document.getElementById('buscar').value ='';
+document.getElementById('filtroEstado').value = '';
+document.getElementById('filtroCategoria').value = '';
+}
+cargarPresupuestos();
+</script>

@@ -1,0 +1,490 @@
+/* Paleta de colores basada en el logo Sirius */
+:root {
+    --sirius-azul-principal: #1e3a8a;     /* Azul principal del logo */
+    --sirius-azul-claro: #3b82f6;         /* Azul más claro */
+    --sirius-azul-oscuro: #1e40af;        /* Azul más oscuro */
+    --sirius-dorado: #fbbf24;             /* Dorado de las estrellas */
+    --sirius-dorado-oscuro: #f59e0b;      /* Dorado más oscuro */
+    --sirius-gris: #64748b;               /* Gris neutro */
+    --sirius-blanco: #ffffff;
+    --sirius-negro: #1f2937;
+}
+
+/* Reset y configuración base */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, var(--sirius-azul-principal) 0%, var(--sirius-azul-claro) 100%);
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--sirius-negro);
+    line-height: 1.6;
+}
+
+/* Navbar profesional */
+.navbar {
+    background: rgba(30, 58, 138, 0.95) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid var(--sirius-dorado);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--sirius-blanco) !important;
+    display: flex;
+    align-items: center;
+    gap: 0px;
+}
+
+/* Logo con fondo transparente/semi-transparente */
+.navbar-brand .logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px;
+    object-fit: contain;
+    border: 3px solid var(--sirius-dorado);
+    backdrop-filter: blur(10px);
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    margin: 0 4px;
+    padding: 8px 16px !important;
+}
+
+.navbar-nav .nav-link:hover {
+    background: var(--sirius-dorado);
+    color: var(--sirius-azul-principal) !important;
+    transform: translateY(-2px);
+}
+
+/* Cards modernos y responsivos */
+.card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--sirius-azul-principal), var(--sirius-azul-claro));
+    color: var(--sirius-blanco);
+    border-radius: 20px 20px 0 0 !important;
+    padding: 20px;
+    border: none;
+    font-weight: 600;
+}
+
+/* Botones profesionales */
+.btn-primary {
+    background: linear-gradient(135deg, var(--sirius-azul-principal), var(--sirius-azul-claro));
+    border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--sirius-azul-oscuro), var(--sirius-azul-principal));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--sirius-azul-principal);
+    color: var(--sirius-azul-principal);
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background: var(--sirius-azul-principal);
+    color: var(--sirius-blanco);
+    transform: translateY(-2px);
+}
+
+/* Hero section con logo */
+.hero-section {
+    background: linear-gradient(135deg, var(--sirius-azul-principal) 0%, var(--sirius-azul-claro) 50%, var(--sirius-dorado) 100%);
+    color: var(--sirius-blanco);
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+    animation: stars 20s linear infinite;
+}
+
+@keyframes stars {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100px); }
+}
+
+.logo-empresa {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Service icons - Solo personas, sin iconos grandes encima */
+.service-icon {
+    transition: all 0.3s ease;
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    height: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-icon:hover {
+    transform: scale(1.03);
+    background: rgba(251, 191, 36, 0.25);
+}
+
+/* Solo imagen de persona, sin iconos encima */
+.service-icon::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.95;
+    transition: all 0.3s ease;
+    border: 4px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+}
+
+.service-icon:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.service-icon h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    margin-top: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+}
+
+/* URLs de imágenes de personas trabajando - mejor calidad */
+.service-icon.electrico::before {
+    background-image: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=85');
+}
+
+.service-icon.incendio::before {
+    background-image: url('https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=85');
+}
+
+.service-icon.construccion::before {
+    background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=85');
+}
+
+.service-icon.programacion::before {
+    background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=85');
+}
+
+/* Stats cards con colores del logo */
+.stats-card {
+    background: linear-gradient(135deg, var(--sirius-azul-principal), var(--sirius-azul-claro));
+    color: var(--sirius-blanco);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    padding: 25px;
+    text-align: center;
+}
+
+.stats-card:hover {
+    transform: scale(1.05);
+}
+
+.stats-card.success {
+    background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.stats-card.info {
+    background: linear-gradient(135deg, var(--sirius-azul-claro), #06b6d4);
+}
+
+.stats-card.warning {
+    background: linear-gradient(135deg, var(--sirius-dorado-oscuro), var(--sirius-dorado));
+    color: var(--sirius-azul-principal);
+}
+
+/* Badges con colores del logo */
+.badge {
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: 600;
+}
+
+.badge.bg-primary {
+    background: var(--sirius-azul-principal) !important;
+}
+
+.badge.bg-warning {
+    background: var(--sirius-dorado) !important;
+    color: var(--sirius-azul-principal) !important;
+}
+
+/* Tablas modernas */
+.table {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.table thead {
+    background: linear-gradient(135deg, var(--sirius-azul-principal), var(--sirius-azul-claro));
+    color: var(--sirius-blanco);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(30, 58, 138, 0.05);
+    transform: scale(1.01);
+    transition: all 0.3s ease;
+}
+
+/* Forms profesionales */
+.form-control, .form-select {
+    border: 2px solid rgba(30, 58, 138, 0.2);
+    border-radius: 12px;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--sirius-azul-principal);
+    box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.25);
+    background: var(--sirius-blanco);
+}
+
+.input-group-text {
+    background: var(--sirius-azul-principal);
+    color: var(--sirius-blanco);
+    border: none;
+    border-radius: 12px 0 0 12px;
+}
+
+/* Alerts profesionales */
+.alert {
+    border: none;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.alert-success {
+    background: rgba(16, 185, 129, 0.1);
+    color: #065f46;
+    border-left: 5px solid #10b981;
+}
+
+.alert-danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #991b1b;
+    border-left: 5px solid #ef4444;
+}
+
+.alert-warning {
+    background: rgba(251, 191, 36, 0.1);
+    color: var(--sirius-azul-principal);
+    border-left: 5px solid var(--sirius-dorado);
+}
+
+/* Footer profesional */
+footer {
+    background: linear-gradient(135deg, var(--sirius-negro), var(--sirius-azul-oscuro)) !important;
+    color: var(--sirius-blanco);
+    margin-top: 60px;
+}
+
+/* Service items en sidebar */
+.service-item {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+}
+
+.service-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-item .service-icon {
+    padding: 10px;
+    height: auto;
+    min-height: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+    
+    .navbar-brand .logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .hero-section {
+        padding: 40px 0;
+    }
+    
+    .logo-empresa {
+        max-width: 180px;
+    }
+    
+    .stats-card {
+        margin-bottom: 20px;
+    }
+    
+    .card {
+        margin-bottom: 20px;
+    }
+    
+    .service-icon {
+        padding: 10px;
+        height: 180px;
+    }
+    
+    .service-icon::before {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .navbar-brand .logo {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .card-body {
+        padding: 20px 15px;
+    }
+    
+    .hero-section {
+        padding: 30px 0;
+    }
+    
+    .stats-card {
+        padding: 20px 15px;
+    }
+    
+    .service-icon {
+        padding: 10px;
+        height: 160px;
+    }
+    
+    .service-icon::before {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* Animaciones suaves */
+* {
+    transition: all 0.3s ease;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--sirius-azul-principal);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--sirius-azul-claro);
+}
+
+/* Loading spinner */
+.spinner-border-primary {
+    color: var(--sirius-azul-principal);
+}
+
+/* Utilidades */
+.text-sirius-blue {
+    color: var(--sirius-azul-principal) !important;
+}
+
+.text-sirius-gold {
+    color: var(--sirius-dorado) !important;
+}
+
+.bg-sirius-blue {
+    background-color: var(--sirius-azul-principal) !important;
+}
+
+.bg-sirius-gold {
+    background-color: var(--sirius-dorado) !important;
+}

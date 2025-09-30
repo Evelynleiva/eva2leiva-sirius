@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Presupuesto - Sirius SPA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        @media print {
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- Botones de acción -->
+        <div class="no-print mb-3">
+            <button class="btn btn-secondary" onclick="window.location.href='lista.html'">
+                <i class="bi bi-arrow-left"></i> Volver
+            </button>
+            <button class="btn btn-warning" onclick="window.location.href='form.html?id=1'">
+                <i class="bi bi-pencil"></i> Editar
+            </button>
+            <button class="btn btn-primary" onclick="window.print()">
+                <i class="bi bi-printer"></i> Imprimir
+            </button>
+            <button class="btn btn-success" onclick="alert('Enviando por email...')">
+                <i class="bi bi-envelope"></i> Enviar por Email
+            </button>
+        </div>
+
+        <!-- Documento del Presupuesto -->
+        <div class="card shadow">
+            <div class="card-body">
+                <!-- Encabezado -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h2 class="text-primary"><strong>SIRIUS SPA</strong></h2>
+                        <p class="mb-1">Instalaciones Eléctricas, Construcción,</p>
+                        <p class="mb-1">Detección de Incendios y Programación</p>
+                        <p class="mb-1"><i class="bi bi-geo-alt"></i> Santiago, Chile</p>
+                        <p class="mb-1"><i class="bi bi-telephone"></i> +56 9 1234 5678</p>
+                        <p class="mb-1"><i class="bi bi-envelope"></i> contacto@siriusspa.cl</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <h1 class="text-info"><strong>PRESUPUESTO</strong></h1>
+                        <p class="mb-1"><strong>N°:</strong> PRES-001</p>
+                        <p class="mb-1"><strong>Fecha Emisión:</strong> 15/09/2025</p>
+                        <p class="mb-1"><strong>Válido hasta:</strong> 15/10/2025</p>
+                        <p><span class="badge bg-success fs-6">APROBADO</span></p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Datos del Cliente -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h5 class="bg-light p-2"><strong>DATOS DEL CLIENTE</strong></h5>
+                        <p class="mb-1"><strong>Razón Social:</strong> Constructora Los Andes Ltda.</p>
+                        <p class="mb-1"><strong>RUT:</strong> 76.543.210-5</p>
+                        <p class="mb-1"><strong>Dirección:</strong> Av. Providencia 1234, Santiago</p>
+                        <p class="mb-1"><strong>Teléfono:</strong> +56 2 2345 6789</p>
+                        <p class="mb-1"><strong>Email:</strong> contacto@losandes.cl</p>
+                    </div>
+                </div>
+
+                <!-- Descripción del Proyecto -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h5 class="bg-light p-2"><strong>DESCRIPCIÓN DEL PROYECTO</strong></h5>
+                        <h4>Instalación Eléctrica Completa - Edificio Comercial</h4>
+                        <p>Instalación completa del sistema eléctrico para edificio comercial de 8 pisos, ubicado en el centro de Santiago. Incluye tableros eléctricos, cableado estructurado, iluminación LED, y sistema de respaldo eléctrico con grupo electrógeno.</p>
+                        <p><strong>Categoría:</strong> <span class="badge bg-warning">Instalaciones Eléctricas</span></p>
+                    </div>
+                </div>
+
+                <!-- Detalle de Items -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h5 class="bg-light p-2"><strong>DETALLE DE ITEMS</strong></h5>
+                        <table class="table table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Descripción</th>
+                                    <th class="text-center">Cantidad</th>
+                                    <th class="text-end">Precio Unit.</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Tablero Eléctrico General 400A</td>
+                                    <td class="text-center">1</td>
+                                    <td class="text-end">$850.000</td>
+                                    <td class="text-end">$850.000</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Tableros Secundarios por Piso (8 unidades)</td>
+                                    <td class="text-center">8</td>
+                                    <td class="text-end">$280.000</td>
+                                    <td class="text-end">$2.240.000</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Cableado Estructurado Completo</td>
+                                    <td class="text-center">1</td>
+                                    <td class="text-end">$2.500.000</td>
+                                    <td class="text-end">$2.500.000</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Sistema de Iluminación LED (Incluye luminarias)</td>
+                                    <td class="text-center">1</td>
+                                    <td class="text-end">$1.800.000</td>
+                                    <td class="text-end">$1.800.000</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Grupo Electrógeno de Respaldo 50KVA</td>
+                                    <td class="text-center">1</td>
+                                    <td class="text-end">$3.200.000</td>
+                                    <td class="text-end">$3.200.000</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Mano de Obra Especializada</td>
+                                    <td class="text-center">1</td>
+                                    <td class="text-end">$1.500.000</td>
+                                    <td class="text-end">$1.500.000</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>Materiales Menores y Consumibles</td>
+                                    <td class="text-center">1</td>
+                                    <td class="text-end">$650.000</td>
+                                    <td class="text-end">$650.000</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>Certificación Eléctrica SEC</td>
+                                    <td class="text-center">1</td>
+                                    <td class="text-end">$450.000</td>
+                                    <td class="text-end">$450.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Totales -->
+                <div class="row mb-4">
+                    <div class="col-md-7"></div>
+                    <div class="col-md-5">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td class="text-end"><strong>SUBTOTAL:</strong></td>
+                                <td class="text-end"><h5>$13.190.000</h5></td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>DESCUENTO (10%):</strong></td>
+                                <td class="text-end"><h5 class="text-danger">-$1.319.000</h5></td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>SUBTOTAL CON DESCUENTO:</strong></td>
+                                <td class="text-end"><h5>$11.871.000</h5></td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><strong>IVA (19%):</strong></td>
+                                <td class="text-end"><h5>$2.255.490</h5></td>
+                            </tr>
+                            <tr class="border-top border-dark">
+                                <td class="text-end"><strong>TOTAL:</strong></td>
+                                <td class="text-end"><h3 class="text-success"><strong>$14.126.490</strong></h3></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Condiciones y Términos -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h5 class="bg-light p-2"><strong>CONDICIONES Y TÉRMINOS</strong></h5>
+                        <ul>
+                            <li><strong>Forma de Pago:</strong> 40% al inicio, 30% al 50% de avance, 30% contra entrega</li>
+                            <li><strong>Plazo de Ejecución:</strong> 90 días hábiles desde el inicio de obras</li>
+                            <li><strong>Garantía:</strong> 12 meses sobre materiales y mano de obra</li>
+                            <li><strong>Validez de la Oferta:</strong> 30 días corridos desde la fecha de emisión</li>
+                            <li><strong>Incluye:</strong> Todos los materiales, mano de obra, transporte y certificación</li>
+                            <li><strong>No Incluye:</strong> Obras civiles adicionales, modificaciones estructurales</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Observaciones -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h5 class="bg-light p-2"><strong>OBSERVACIONES</strong></h5>
+                        <p>El presente presupuesto está sujeto a verificación en terreno. Cualquier modificación o trabajo adicional no contemplado será cotizado por separado. Los materiales utilizados serán de primera calidad y certificados según normativa chilena vigente.</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Firma -->
+                <div class="row mt-5">
+                    <div class="col-md-6 text-center">
+                        <p class="mb-5">_______________________________</p>
+                        <p><strong>SIRIUS SPA</strong></p>
+                        <p>Representante Legal</p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <p class="mb-5">_______________________________</p>
+                        <p><strong>CLIENTE</strong></p>
+                        <p>Firma y Timbre</p>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="row mt-4">
+                    <div class="col-md-12 text-center">
+                        <small class="text-muted">
+                            Este presupuesto es válido únicamente dentro del plazo indicado. 
+                            Una vez aceptado, se procederá a la firma del contrato respectivo.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

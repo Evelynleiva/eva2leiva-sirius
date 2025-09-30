@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi Perfil - Sirius SPA{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-circle"></i> Mi Perfil
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <h5 class="mb-3">Información del Usuario</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p><strong>Usuario:</strong> {{ user.username }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Email:</strong> {{ user.email }}</p>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p><strong>Nombre:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Tipo:</strong> {{ perfil.get_tipo_usuario_display }}</p>
+                            </div>
+                        </div>
+
+                        <hr>
+                        
+                        <h5 class="mb-3">Información de Perfil</h5>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Tipo de Usuario</label>
+                            {{ form.tipo_usuario }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Teléfono</label>
+                                {{ form.telefono }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">RUT</label>
+                                {{ form.rut }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Empresa</label>
+                            {{ form.empresa }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Dirección</label>
+                            {{ form.direccion }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Avatar</label>
+                            {{ form.avatar }}
+                            {% if perfil.avatar %}
+                                <div class="mt-2">
+                                    <img src="{{ perfil.avatar.url }}" alt="Avatar" class="img-thumbnail" style="max-width: 150px;">
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Volver
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formControls = document.querySelectorAll('input, select, textarea');
+    formControls.forEach(function(element) {
+        if (!element.classList.contains('btn')) {
+            element.classList.add('form-control');
+        }
+    });
+});
+</script>
+{% endblock %}

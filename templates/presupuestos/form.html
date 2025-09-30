@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if form.instance.pk %}Editar Presupuesto{% else %}Nuevo Presupuesto{% endif %} - Sirius SPA
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-calculator"></i>
+                        {% if form.instance.pk %}
+                            Editar Presupuesto
+                        {% else %}
+                            Nuevo Presupuesto
+                        {% endif %}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" id="presupuestoForm">
+                        {% csrf_token %}
+                        
+                        {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>¡Error!</strong> Por favor corrige los siguientes errores:
+                            <ul class="mb-0 mt-2">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ field.label }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                        {% endif %}
+
+                        <div class="row">
+                            <!-- Cliente -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.cliente.id_for_label }}" class="form-label">
+                                    <i class="bi bi-person"></i> Cliente *
+                                </label>
+                                {{ form.cliente }}
+                                {% if form.cliente.errors %}
+                                    <div class="text-danger small mt-1">{{ form.cliente.errors.0 }}</div>
+                                {% endif %}
+                                <div class="form-text">Selecciona el cliente para este presupuesto</div>
+                            </div>
+
+                            <!-- Proyecto (opcional) -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.proyecto.id_for_label }}" class="form-label">
+                                    <i class="bi bi-briefcase"></i> Proyecto (Opcional)
+                                </label>
+                                {{ form.proyecto }}
+                                {% if form.proyecto.errors %}
+                                    <div class="text-danger small mt-1">{{ form.proyecto.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="mb-3">
+                            <label for="{{ form.descripcion.id_for_label }}" class="form-label">
+                                <i class="bi bi-file-text"></i> Descripción *
+                            </label>
+                            {{ form.descripcion }}
+                            {% if form.descripcion.errors %}
+                                <div class="text-danger small mt-1">{{ form.descripcion.errors.0 }}</div>
+                            {% endif %}
+                            <div class="form-text">Describe los servicios incluidos en el presupuesto</div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Monto Total -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.monto_total.id_for_label }}" class="form-label">
+                                    <i class="bi bi-currency-dollar"></i> Monto Total *
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    {{ form.monto_total }}
+                                </div>
+                                {% if form.monto_total.errors %}
+                                    <div class="text-danger small mt-1">{{ form.monto_total.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Fecha de Emisión -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.fecha_emision.id_for_label }}" class="form-label">
+                                    <i class="bi bi-calendar"></i> Fecha de Emisión *
+                                </label>
+                                {{ form.fecha_emision }}
+                                {% if form.fecha_emision.errors %}
+                                    <div class="text-danger small mt-1">{{ form.fecha_emision.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Validez (días) -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.validez_dias.id_for_label }}" class="form-label">
+                                    <i class="bi bi-clock"></i> Validez (días) *
+                                </label>
+                                {{ form.validez_dias }}
+                                {% if form.validez_dias.errors %}
+                                    <div class="text-danger small mt-1">{{ form.validez_dias.errors.0 }}</div>
+                                {% endif %}
+                                <div class="form-text">Días de validez del presupuesto (ejemplo: 30)</div>
+                            </div>
+
+                            <!-- Estado -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.estado.id_for_label }}" class="form-label">
+                                    <i class="bi bi-flag"></i> Estado *
+                                </label>
+                                {{ form.estado }}
+                                {% if form.estado.errors %}
+                                    <div class="text-danger small mt-1">{{ form.estado.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Observaciones -->
+                        <div class="mb-3">
+                            <label for="{{ form.observaciones.id_for_label }}" class="form-label">
+                                <i class="bi bi-chat-left-text"></i> Observaciones
+                            </label>
+                            {{ form.observaciones }}
+                            {% if form.observaciones.errors %}
+                                <div class="text-danger small mt-1">{{ form.observaciones.errors.0 }}</div>
+                            {% endif %}
+                            <div class="form-text">Notas adicionales sobre el presupuesto</div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Botones -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{% url 'presupuesto_lista' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i>
+                                {% if form.instance.pk %}
+                                    Actualizar Presupuesto
+                                {% else %}
+                                    Crear Presupuesto
+                                {% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Ayuda -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h6 class="card-title"><i class="bi bi-info-circle"></i> Información</h6>
+                    <p class="card-text small mb-0">
+                        Los presupuestos permiten cotizar servicios a clientes. Una vez aprobados,
+                        pueden convertirse en proyectos activos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Agregar clases de Bootstrap a los campos del formulario
+    const formControls = document.querySelectorAll('input, select, textarea');
+    formControls.forEach(function(element) {
+        if (!element.classList.contains('btn')) {
+            element.classList.add('form-control');
+        }
+    });
+
+    // Formato de fecha
+    const dateInputs = document.querySelectorAll('input[type="date"]');
+    dateInputs.forEach(function(input) {
+        if (!input.value) {
+            const today = new Date().toISOString().split('T')[0];
+            input.value = today;
+        }
+    });
+
+    // Validación del formulario
+    const form = document.getElementById('presupuestoForm');
+    form.addEventListener('submit', function(e) {
+        const montoTotal = document.querySelector('input[name="monto_total"]');
+        if (montoTotal && parseFloat(montoTotal.value) <= 0) {
+            e.preventDefault();
+            alert('El monto total debe ser mayor a cero');
+            montoTotal.focus();
+        }
+    });
+});
+</script>
+{% endblock %}

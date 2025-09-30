@@ -1,0 +1,384 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Sistema Sirius LyCh Spa{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <!-- Hero Section -->
+        <div class="card mb-4 hero-section">
+            <div class="card-body text-center py-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="display-5 fw-bold mb-3">
+                            Bienvenido a Sirius LyCh Spa
+                        </h1>
+                        <p class="lead mb-4">Sistema integral de gestión para soluciones profesionales</p>
+                        <div class="row text-center g-3">
+                            <div class="col-6 col-md-3">
+                                <div class="service-icon-card">
+                                    <div class="service-circle">
+                                        <i class="bi bi-lightning-charge-fill"></i>
+                                    </div>
+                                    <h6 class="mt-2">Instalaciones Eléctricas</h6>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="service-icon-card">
+                                    <div class="service-circle incendio">
+                                        <i class="bi bi-fire"></i>
+                                    </div>
+                                    <h6 class="mt-2">Sistemas contra Incendios</h6>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="service-icon-card">
+                                    <div class="service-circle construccion">
+                                        <i class="bi bi-hammer"></i>
+                                    </div>
+                                    <h6 class="mt-2">Construcción</h6>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="service-icon-card">
+                                    <div class="service-circle programacion">
+                                        <i class="bi bi-code-slash"></i>
+                                    </div>
+                                    <h6 class="mt-2">Programación</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <!-- Logo de la empresa -->
+                        {% load static %}
+                        <div class="logo-placeholder p-4">
+                            <img src="{% static 'imagenes/Logo de Compañía Sirius LyCh Spa.png' %}" alt="Sirius LyCh Spa" class="logo-empresa">
+                            <h4 class="mt-3 mb-1">SIRIUS LyCh Spa</h4>
+                            <p class="mb-0">Soluciones Integrales</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+<!-- Dashboard Stats -->
+<div class="row mb-4 g-3">
+    <div class="col-md-3">
+        <div class="card stats-card stats-primary h-100 shadow-sm">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-briefcase-fill display-3 mb-3"></i>
+                <h2 class="mb-2">{{ total_proyectos }}</h2>
+                <p class="mb-0 fw-semibold">Total Proyectos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card stats-success h-100 shadow-sm">
+            <div class="card-body text-center text-white p-4">
+                <i class="bi bi-play-circle-fill display-3 mb-3"></i>
+                <h2 class="mb-2">{{ proyectos_activos }}</h2>
+                <p class="mb-0 fw-semibold">Proyectos Activos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card stats-info h-100 shadow-sm">
+            <div class="card-body text-center text-white p-4">
+                <i class="bi bi-people-fill display-3 mb-3"></i>
+                <h2 class="mb-2">{{ total_clientes }}</h2>
+                <p class="mb-0 fw-semibold">Clientes Activos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card stats-warning h-100 shadow-sm">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-exclamation-triangle-fill display-3 mb-3"></i>
+                <h2 class="mb-2">{{ incidencias_abiertas }}</h2>
+                <p class="mb-0 fw-semibold">Incidencias Abiertas</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Projects and Quick Actions -->
+<div class="row">
+    <div class="col-md-8 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+                <h5 class="mb-0">
+                    <i class="bi bi-clock-history text-primary"></i> Proyectos Recientes
+                </h5>
+                <a href="{% url 'proyecto_lista' %}" class="btn btn-sm btn-outline-primary">Ver todos</a>
+            </div>
+            <div class="card-body">
+                {% if proyectos_recientes %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Proyecto</th>
+                                <th>Cliente</th>
+                                <th>Estado</th>
+                                <th>Prioridad</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for proyecto in proyectos_recientes %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'proyecto_detalle' proyecto.pk %}" class="text-decoration-none fw-semibold">
+                                        {{ proyecto.nombre }}
+                                    </a>
+                                </td>
+                                <td>{{ proyecto.cliente.nombre }}</td>
+                                <td>
+                                    {% if proyecto.estado == 'completado' %}
+                                        <span class="badge bg-success">{{ proyecto.get_estado_display }}</span>
+                                    {% elif proyecto.estado == 'en_proceso' %}
+                                        <span class="badge bg-primary">{{ proyecto.get_estado_display }}</span>
+                                    {% elif proyecto.estado == 'cancelado' %}
+                                        <span class="badge bg-danger">{{ proyecto.get_estado_display }}</span>
+                                    {% else %}
+                                        <span class="badge bg-warning">{{ proyecto.get_estado_display }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if proyecto.prioridad == 'urgente' %}
+                                        <span class="badge bg-danger">{{ proyecto.get_prioridad_display }}</span>
+                                    {% elif proyecto.prioridad == 'alta' %}
+                                        <span class="badge bg-warning text-dark">{{ proyecto.get_prioridad_display }}</span>
+                                    {% else %}
+                                        <span class="badge bg-info">{{ proyecto.get_prioridad_display }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ proyecto.fecha_inicio|date:"d/m/Y" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-inbox display-1 text-muted"></i>
+                    <p class="text-muted mt-3 mb-3">No hay proyectos registrados aún</p>
+                    <a href="{% url 'proyecto_crear' %}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Crear Primer Proyecto
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <!-- Quick Actions -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0">
+                    <i class="bi bi-lightning-fill text-warning"></i> Acciones Rápidas
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-3">
+                    <a href="{% url 'proyecto_crear' %}" class="btn btn-primary btn-lg">
+                        <i class="bi bi-plus-circle"></i> Nuevo Proyecto
+                    </a>
+                    <a href="{% url 'cliente_crear' %}" class="btn btn-outline-primary">
+                        <i class="bi bi-person-plus"></i> Nuevo Cliente
+                    </a>
+                    <a href="{% url 'incidencia_crear' %}" class="btn btn-outline-warning">
+                        <i class="bi bi-exclamation-triangle"></i> Reportar Incidencia
+                    </a>
+                    <a href="{% url 'presupuesto_crear' %}" class="btn btn-outline-success">
+                        <i class="bi bi-calculator"></i> Nuevo Presupuesto
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Overview -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0">
+                    <i class="bi bi-tools text-info"></i> Nuestros Servicios
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if servicios %}
+                {% for servicio in servicios %}
+                <div class="service-item mb-3 p-3 rounded shadow-sm">
+                    <div class="d-flex align-items-center">
+                        <div class="service-icon me-3">
+                            {% if servicio.tipo_servicio == 'electrico' %}
+                                <i class="bi bi-lightning-charge text-warning fs-2"></i>
+                            {% elif servicio.tipo_servicio == 'incendio' %}
+                                <i class="bi bi-shield-exclamation text-danger fs-2"></i>
+                            {% elif servicio.tipo_servicio == 'construccion' %}
+                                <i class="bi bi-building text-info fs-2"></i>
+                            {% elif servicio.tipo_servicio == 'programacion' %}
+                                <i class="bi bi-code-slash text-success fs-2"></i>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h6 class="mb-1 fw-bold">{{ servicio.nombre }}</h6>
+                            <small class="text-muted">{{ servicio.get_tipo_servicio_display }}</small>
+                            <div class="text-primary fw-bold mt-1">${{ servicio.precio_base|floatformat:0 }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="text-center mt-3">
+                    <a href="{% url 'servicio_lista' %}" class="btn btn-sm btn-outline-primary">
+                        Ver todos los servicios
+                    </a>
+                </div>
+                {% else %}
+                <div class="text-center py-3">
+                    <i class="bi bi-tools text-muted fs-1"></i>
+                    <p class="text-muted small mt-2 mb-0">No hay servicios configurados</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<!-- Public View for Non-Authenticated Users -->
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-body text-center py-5">
+                <h2 class="mb-4">Accede a tu cuenta</h2>
+                <p class="lead mb-4">Inicia sesión para gestionar tus proyectos y servicios</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+                        <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                    </a>
+                    <a href="{% url 'registro' %}" class="btn btn-outline-primary btn-lg">
+                        <i class="bi bi-person-plus"></i> Crear Cuenta
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<style>
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #2c5aa0 0%, #1e3a70 100%);
+    color: white;
+    border: none;
+}
+
+.logo-empresa {
+    max-width: 200px;
+    height: auto;
+    filter: brightness(1.2) drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+/* Service Icons */
+.service-icon-card {
+    transition: transform 0.3s ease;
+}
+
+.service-icon-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-circle {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 2rem;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.service-circle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.service-circle.incendio {
+    background: rgba(255, 107, 107, 0.2);
+    border-color: rgba(255, 107, 107, 0.4);
+}
+
+.service-circle.construccion {
+    background: rgba(52, 152, 219, 0.2);
+    border-color: rgba(52, 152, 219, 0.4);
+}
+
+.service-circle.programacion {
+    background: rgba(46, 204, 113, 0.2);
+    border-color: rgba(46, 204, 113, 0.4);
+}
+
+/* Stats Cards */
+.stats-card {
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+.stats-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.stats-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.stats-info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.stats-warning {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+/* Service Items */
+.service-item {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border: 1px solid #e1e8ed;
+    transition: all 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Cards */
+.card {
+    border-radius: 12px;
+    border: none;
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+    border-bottom: 2px solid #f0f0f0;
+}
+</style>
+{% endblock %}

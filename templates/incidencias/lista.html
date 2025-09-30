@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Incidencias - Sirius SPA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <div class="card shadow">
+            <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">Incidencias - Sirius SPA</h3>
+                <button class="btn btn-light" onclick="window.location.href='form.html'">
+                    <i class="bi bi-plus-circle"></i> Nueva Incidencia
+                </button>
+            </div>
+            <div class="card-body">
+                <!-- Filtros -->
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="buscar" placeholder="Buscar incidencia...">
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-select" id="filtroEstado">
+                            <option value="">Todos los estados</option>
+                            <option value="abierta">Abierta</option>
+                            <option value="proceso">En Proceso</option>
+                            <option value="resuelta">Resuelta</option>
+                            <option value="cerrada">Cerrada</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-select" id="filtroPrioridad">
+                            <option value="">Todas las prioridades</option>
+                            <option value="baja">Baja</option>
+                            <option value="media">Media</option>
+                            <option value="alta">Alta</option>
+                            <option value="critica">Crítica</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="filtroTipo">
+                            <option value="">Todos los tipos</option>
+                            <option value="tecnico">Problema Técnico</option>
+                            <option value="material">Falta de Material</option>
+                            <option value="personal">Problema de Personal</option>
+                            <option value="clima">Clima Adverso</option>
+                            <option value="cliente">Solicitud del Cliente</option>
+                            <option value="seguridad">Seguridad</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-secondary w-100" onclick="limpiarFiltros()">
+                            <i class="bi bi-x-circle"></i> Limpiar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Resumen -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                                <h5>Abiertas</h5>
+                                <h2>5</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h5>En Proceso</h5>
+                                <h2>3</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h5>Resueltas</h5>
+                                <h2>8</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body text-center">
+                                <h5>Críticas</h5>
+                                <h2>2</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla -->
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Proyecto</th>
+                                <th>Tipo</th>
+                                <th>Prioridad</th>
+                                <th>Estado</th>
+                                <th>Asignado A</th>
+                                <th>Fecha Reporte</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaIncidencias">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Eliminar -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro de eliminar esta incidencia?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmarEliminar()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const incidencias = [
+            { 
+                id: 1, 
+                titulo: 'Falla en tablero eléctrico piso 3', 
+                proyecto: 'PRY-001', 
+                tipo: 'tecnico',
+                prioridad: 'critica',
+                estado: 'proceso',
+                asignado: 'Carlos Rodríguez',
+                fecha: '2025-09-20'
+            },
+            { 
+                id: 2, 
+                titulo: 'Falta cemento para fundaciones', 
+                proyecto: 'PRY-002', 
+                tipo: 'material',
+                prioridad: 'alta',
+                estado: 'abierta',
+                asignado: 'Pedro Muñoz',
+                fecha: '2025-09-22'
+            },
+            { 
+                id: 3, 
+                titulo: 'Detector de humo defectuoso', 
+                proyecto: 'PRY-003', 
+                tipo: 'tecnico',
+                prioridad: 'alta',
+                estado: 'abierta',
+                asignado: 'Ana Silva',
+                fecha: '2025-09-23'
+            },
+            { 
+                id: 4, 
+                titulo: 'Error en módulo de login', 
+                proyecto: 'PRY-004', 
+                tipo: 'tecnico',
+                prioridad: 'media',
+                estado: 'proceso',
+                asignado: 'Laura Fernández',
+                fecha: '2025-09-24'
+            },
+            { 
+                id: 5, 
+                titulo: 'Cliente solicita cambio de diseño', 
+                proyecto: 'PRY-002', 
+                tipo: 'cliente',
+                prioridad: 'media',
+                estado: 'abierta',
+                asignado: 'Sin asignar',
+                fecha: '2025-09-25'
+            },
+            { 
+                id: 6, 
+                titulo: 'Lluvia impide trabajo en obra', 
+                proyecto: 'PRY-002', 
+                tipo: 'clima',
+                prioridad: 'baja',
+                estado: 'resuelta',
+                asignado: 'Pedro Muñoz',
+                fecha: '2025-09-18'
+            },
+            { 
+                id: 7, 
+                titulo: 'Cortocircuito en instalación', 
+                proyecto: 'PRY-005', 
+                tipo: 'seguridad',
+                prioridad: 'critica',
+                estado: 'resuelta',
+                asignado: 'Carlos Rodríguez',
+                fecha: '2025-09-15'
+            },
+            { 
+                id: 8, 
+                titulo: 'Personal insuficiente para la tarea', 
+                proyecto: 'PRY-001', 
+                tipo: 'personal',
+                prioridad: 'media',
+                estado: 'proceso',
+                asignado: 'Carlos Rodríguez',
+                fecha: '2025-09-26'
+            }
+        ];
+
+        let incidenciaEliminar = null;
+
+        const nombresTipo = {
+            'tecnico': 'Técnico',
+            'material': 'Material',
+            'personal': 'Personal',
+            'clima': 'Clima',
+            'cliente': 'Cliente',
+            'seguridad': 'Seguridad',
+            'otro': 'Otro'
+        };
+
+        const coloresPrioridad = {
+            'baja': 'bg-secondary',
+            'media': 'bg-info',
+            'alta': 'bg-warning',
+            'critica': 'bg-danger'
+        };
+
+        const coloresEstado = {
+            'abierta': 'bg-warning',
+            'proceso': 'bg-primary',
+            'resuelta': 'bg-success',
+            'cerrada': 'bg-secondary'
+        };
+
+        const nombresEstado = {
+            'abierta': 'Abierta',
+            'proceso': 'En Proceso',
+            'resuelta': 'Resuelta',
+            'cerrada': 'Cerrada'
+        };
+
+        function cargarIncidencias() {
+            const tbody = document.getElementById('tablaIncidencias');
+            tbody.innerHTML = '';
+
+            incidencias.forEach(inc => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>#${inc.id}</strong></td>
+                    <td>${inc.titulo}</td>
+                    <td><span class="badge bg-secondary">${inc.proyecto}</span></td>
+                    <td><span class="badge bg-info">${nombresTipo[inc.tipo]}</span></td>
+                    <td><span class="badge ${coloresPrioridad[inc.prioridad]}">${inc.prioridad.toUpperCase()}</span></td>
+                    <td><span class="badge ${coloresEstado[inc.estado]}">${nombresEstado[inc.estado]}</span></td>
+                    <td>${inc.asignado}</td>
+                    <td>${inc.fecha}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success" onclick="resolverIncidencia(${inc.id})" title="Resolver">
+                            <i class="bi bi-check-circle"></i>
+                        </button>
+                        <button class="btn btn-sm btn-primary" onclick="editarIncidencia(${inc.id})" title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="eliminarIncidencia(${inc.id})" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function resolverIncidencia(id) {
+            window.location.href = `resolver.html?id=${id}`;
+        }
+
+        function editarIncidencia(id) {
+            window.location.href = `form.html?id=${id}`;
+        }
+
+        function eliminarIncidencia(id) {
+            incidenciaEliminar = id;
+            const modal = new bootstrap.Modal(document.getElementById('modalEliminar'));
+            modal.show();
+        }
+
+        function confirmarEliminar() {
+            alert(`Incidencia ${incidenciaEliminar} eliminada`);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalEliminar'));
+            modal.hide();
+        }
+
+        function limpiarFiltros() {
+            document.getElementById('buscar').value = '';
+            document.getElementById('filtroEstado').value = '';
+            document.getElementById('filtroPrioridad').value = '';
+            document.getElementById('filtroTipo').value = '';
+        }
+
+        cargarIncidencias();
+    </script>
+</body>
+</html>

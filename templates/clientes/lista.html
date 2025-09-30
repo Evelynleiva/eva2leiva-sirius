@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Clientes - Sistema Sirius{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">
+                    <i class="bi bi-people"></i> Gestión de Clientes
+                </h3>
+                <a href="{% url 'cliente_crear' %}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Nuevo Cliente
+                </a>
+            </div>
+            <div class="card-body">
+                {% if clientes %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>RUT</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Tipo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cliente in clientes %}
+                            <tr>
+                                <td><strong>{{ cliente.nombre }}</strong></td>
+                                <td>{{ cliente.rut }}</td>
+                                <td>{{ cliente.email }}</td>
+                                <td>{{ cliente.telefono }}</td>
+                                <td>
+                                    <span class="badge bg-info">{{ cliente.get_tipo_cliente_display }}</span>
+                                </td>
+                                <td>
+                                    <a href="{% url 'cliente_editar' cliente.pk %}" 
+                                       class="btn btn-sm btn-warning" 
+                                       title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button" 
+                                            class="btn btn-sm btn-danger" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#deleteModal{{ cliente.pk }}"
+                                            title="Eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    
+                                    <!-- Modal de confirmación -->
+                                    <div class="modal fade" id="deleteModal{{ cliente.pk }}" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ¿Está seguro que desea eliminar al cliente <strong>{{ cliente.nombre }}</strong>?
+                                                    <br><small class="text-muted">Esta acción no se puede deshacer.</small>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <a href="{% url 'cliente_eliminar' cliente.pk %}" class="btn btn-danger">Eliminar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Paginación -->
+                {% if clientes.has_other_pages %}
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        {% if clientes.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ clientes.previous_page_number }}">Anterior</a>
+                        </li>
+                        {% endif %}
+                        
+                        {% for num in clientes.paginator.page_range %}
+                        <li class="page-item {% if clientes.number == num %}active{% endif %}">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                        {% endfor %}
+                        
+                        {% if clientes.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ clientes.next_page_number }}">Siguiente</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+                
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-people display-1 text-muted"></i>
+                    <p class="text-muted mt-3">No hay clientes registrados</p>
+                    <a href="{% url 'cliente_crear' %}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Crear Primer Cliente
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

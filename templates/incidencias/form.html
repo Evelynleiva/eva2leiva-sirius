@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Incidencias - Sirius SPA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="card shadow">
+                    <div class="card-header bg-danger text-white">
+                        <h3 class="mb-0">Registro de Incidencias - Sirius SPA</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="incidenciaForm">
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Título de la Incidencia *</label>
+                                <input type="text" class="form-control" id="titulo" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripción *</label>
+                                <textarea class="form-control" id="descripcion" rows="4" required></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="proyecto" class="form-label">Proyecto Relacionado *</label>
+                                    <select class="form-select" id="proyecto" required>
+                                        <option value="">Seleccione un proyecto...</option>
+                                        <option value="1">PRY-001 - Instalación Eléctrica Edificio Norte</option>
+                                        <option value="2">PRY-002 - Construcción Casa Habitación</option>
+                                        <option value="3">PRY-003 - Sistema Detección Incendios Municipal</option>
+                                        <option value="4">PRY-004 - Software Control de Acceso</option>
+                                        <option value="5">PRY-005 - Remodelación Eléctrica Hotel</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="tipo" class="form-label">Tipo de Incidencia *</label>
+                                    <select class="form-select" id="tipo" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="tecnico">Problema Técnico</option>
+                                        <option value="material">Falta de Material</option>
+                                        <option value="personal">Problema de Personal</option>
+                                        <option value="clima">Clima Adverso</option>
+                                        <option value="cliente">Solicitud del Cliente</option>
+                                        <option value="seguridad">Seguridad</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="prioridad" class="form-label">Prioridad *</label>
+                                    <select class="form-select" id="prioridad" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="baja">Baja</option>
+                                        <option value="media">Media</option>
+                                        <option value="alta">Alta</option>
+                                        <option value="critica">Crítica</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="estado" class="form-label">Estado *</label>
+                                    <select class="form-select" id="estado" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="abierta" selected>Abierta</option>
+                                        <option value="proceso">En Proceso</option>
+                                        <option value="resuelta">Resuelta</option>
+                                        <option value="cerrada">Cerrada</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="reportadoPor" class="form-label">Reportado Por *</label>
+                                    <input type="text" class="form-control" id="reportadoPor" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="asignadoA" class="form-label">Asignado A</label>
+                                    <select class="form-select" id="asignadoA">
+                                        <option value="">Sin asignar</option>
+                                        <option value="1">Carlos Rodríguez</option>
+                                        <option value="2">Ana Silva</option>
+                                        <option value="3">Pedro Muñoz</option>
+                                        <option value="4">Laura Fernández</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="fechaReporte" class="form-label">Fecha de Reporte *</label>
+                                    <input type="date" class="form-control" id="fechaReporte" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="fechaLimite" class="form-label">Fecha Límite</label>
+                                    <input type="date" class="form-control" id="fechaLimite">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="ubicacion" class="form-label">Ubicación/Lugar</label>
+                                <input type="text" class="form-control" id="ubicacion" placeholder="Lugar específico donde ocurrió">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="impacto" class="form-label">Impacto en el Proyecto</label>
+                                <textarea class="form-control" id="impacto" rows="2" placeholder="Cómo afecta esta incidencia al proyecto"></textarea>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-secondary" onclick="window.location.href='lista.html'">
+                                    Cancelar
+                                </button>
+                                <button type="reset" class="btn btn-warning">
+                                    Limpiar
+                                </button>
+                                <button type="submit" class="btn btn-danger">
+                                    Registrar Incidencia
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Establecer fecha actual por defecto
+        document.getElementById('fechaReporte').valueAsDate = new Date();
+
+        document.getElementById('incidenciaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const datos = {
+                titulo: document.getElementById('titulo').value,
+                descripcion: document.getElementById('descripcion').value,
+                proyecto: document.getElementById('proyecto').value,
+                tipo: document.getElementById('tipo').value,
+                prioridad: document.getElementById('prioridad').value,
+                estado: document.getElementById('estado').value,
+                reportadoPor: document.getElementById('reportadoPor').value,
+                asignadoA: document.getElementById('asignadoA').value,
+                fechaReporte: document.getElementById('fechaReporte').value,
+                fechaLimite: document.getElementById('fechaLimite').value,
+                ubicacion: document.getElementById('ubicacion').value,
+                impacto: document.getElementById('impacto').value
+            };
+            
+            console.log('Incidencia registrada:', datos);
+            alert('Incidencia registrada correctamente');
+            window.location.href = 'lista.html';
+        });
+    </script>
+</body>
+</html>

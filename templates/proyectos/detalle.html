@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Proyecto - Sirius SPA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- Cabecera -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="mb-0">Detalle del Proyecto</h3>
+                    <small>Código: PRY-001</small>
+                </div>
+                <div>
+                    <button class="btn btn-light btn-sm" onclick="window.location.href='lista.html'">
+                        <i class="bi bi-arrow-left"></i> Volver
+                    </button>
+                    <button class="btn btn-warning btn-sm" onclick="window.location.href='form.html?id=1'">
+                        <i class="bi bi-pencil"></i> Editar
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <h2>Instalación Eléctrica Edificio Norte</h2>
+                <p class="lead">Instalación completa del sistema eléctrico del edificio comercial de 8 pisos.</p>
+                
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <span class="badge bg-primary fs-6">En Proceso</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="badge bg-warning fs-6">Prioridad: Alta</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="badge bg-warning fs-6">Categoría: Eléctricas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Información Principal -->
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="bi bi-info-circle"></i> Información General</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong><i class="bi bi-building"></i> Cliente:</strong><br>
+                        Constructora Los Andes Ltda.</p>
+                        
+                        <p><strong><i class="bi bi-person"></i> Responsable:</strong><br>
+                        Carlos Rodríguez - Jefe de Proyecto</p>
+                        
+                        <p><strong><i class="bi bi-geo-alt"></i> Dirección:</strong><br>
+                        Av. Libertador Bernardo O'Higgins 1234, Santiago</p>
+                        
+                        <p><strong><i class="bi bi-calendar"></i> Fecha Inicio:</strong><br>
+                        15 de Enero, 2025</p>
+                        
+                        <p><strong><i class="bi bi-calendar-check"></i> Fecha Término Estimada:</strong><br>
+                        30 de Junio, 2025</p>
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-cash"></i> Información Financiera</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Presupuesto Total:</strong><br>
+                        <span class="fs-4 text-success">$8.500.000</span></p>
+                        
+                        <p><strong>Gastado hasta ahora:</strong><br>
+                        <span class="fs-5">$5.500.000</span></p>
+                        
+                        <p><strong>Saldo restante:</strong><br>
+                        <span class="fs-5 text-primary">$3.000.000</span></p>
+
+                        <div class="progress mt-3" style="height: 25px;">
+                            <div class="progress-bar bg-success" style="width: 65%">65% ejecutado</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalles del Proyecto -->
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-list-check"></i> Descripción</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Proyecto de instalación eléctrica integral para edificio comercial de 8 pisos ubicado en el centro de Santiago. Incluye instalación de tableros, cableado estructurado, iluminación LED, y sistemas de respaldo eléctrico.</p>
+                        
+                        <h6 class="mt-3">Alcances del proyecto:</h6>
+                        <ul>
+                            <li>Instalación de 15 tableros eléctricos</li>
+                            <li>Cableado estructurado completo</li>
+                            <li>Sistema de iluminación LED en todas las áreas</li>
+                            <li>Instalación de grupo electrógeno de respaldo</li>
+                            <li>Certificación eléctrica SEC</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-warning text-white">
+                        <h5 class="mb-0"><i class="bi bi-clipboard-data"></i> Avance del Proyecto</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Progreso General:</strong></p>
+                        <div class="progress mb-3" style="height: 30px;">
+                            <div class="progress-bar bg-success" style="width: 65%">
+                                <strong>65%</strong>
+                            </div>
+                        </div>
+
+                        <p><strong>Etapas completadas:</strong></p>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Planificación
+                                <span class="badge bg-success">100%</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Compra de materiales
+                                <span class="badge bg-success">100%</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Instalación tableros
+                                <span class="badge bg-warning">80%</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Cableado
+                                <span class="badge bg-info">45%</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Iluminación
+                                <span class="badge bg-secondary">0%</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Observaciones -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0"><i class="bi bi-chat-left-text"></i> Observaciones</h5>
+            </div>
+            <div class="card-body">
+                <p>El proyecto avanza según lo planificado. Se logró completar la instalación de tableros eléctricos en los primeros 5 pisos. Próxima semana se inicia el cableado de los pisos superiores.</p>
+                <p class="mb-0"><em>Última actualización: 25 de Septiembre, 2025</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
