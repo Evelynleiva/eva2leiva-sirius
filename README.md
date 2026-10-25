@@ -1,28 +1,34 @@
-# Sistema de Gestión Empresarial - Sirius LyCh
+# Sistema de gestión empresarial — Sirius LyCh
 
-Sistema web integral desarrollado en **Django (Python)** para la gestión administrativa de proyectos, clientes y presupuestos empresariales.
+Aplicación web desarrollada con **Python y Django** para apoyar la administración de clientes, proyectos y presupuestos.
 
-## 🛠️ Tecnologías Utilizadas
+## Propósito
 
-* **Backend:** Python 3.x, Django Framework.
-* **Frontend:** HTML5, CSS3, JavaScript, Bootstrap.
-* **Base de Datos:** Relacional (SQL / PostgreSQL / MySQL).
-* **Control de Versiones:** Git & GitHub.
+Organizar información administrativa y facilitar el seguimiento de tareas de gestión empresarial.
 
-## 📋 Funcionalidades Principales
+## Tecnologías documentadas
 
-* Autenticación y gestión de usuarios/roles.
-* Módulo CRUD de administración de clientes.
-* Control y seguimiento de proyectos empresariales.
-* Generación y gestión de presupuestos.
+Python, Django, HTML, CSS, JavaScript, Bootstrap y base de datos relacional.
 
-## 🚀 Instalación y Configuración Local
+## Funcionalidades descritas
 
-1. Clonar el repositorio:
-   ```bash
-   git clone [https://github.com/Evelynleiva/eva2leiva-sirius.git](https://github.com/Evelynleiva/eva2leiva-sirius.git)
-   python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+- Autenticación y usuarios.
+- Gestión de clientes.
+- Seguimiento de proyectos.
+- Gestión de presupuestos.
+
+**Estado:** estas funciones están descritas en la documentación original; falta verificar cuáles están operativas en la versión actual. No se afirma que exista un despliegue público ni pruebas automatizadas completas.
+
+## Qué demuestra
+
+Organización de una aplicación Django, trabajo con modelos, vistas, formularios y procesos administrativos.
+
+## Pendientes para una demostración profesional
+
+1. Confirmar el motor de base de datos y los pasos reproducibles de instalación.
+2. Agregar capturas reales de las pantallas.
+3. Identificar funcionalidades terminadas y las que están en desarrollo.
+4. Registrar evidencias de pruebas.
+5. Revisar que no se publiquen credenciales ni datos personales.
+
+Repositorio de [Evelyn Leiva](https://github.com/Evelynleiva).
