@@ -1,34 +1,28 @@
-# Sistema de gestión empresarial — Sirius LyCh
+# Sistema Sirius LyCh
 
-Aplicación web desarrollada con **Python y Django** para apoyar la administración de clientes, proyectos y presupuestos.
+Proyecto web desarrollado con Python y Django para llevar el registro de clientes, proyectos y presupuestos de una empresa de servicios.
 
-## Propósito
+La idea es tener la información administrativa en un mismo sistema, en lugar de manejarla en distintos archivos.
 
-Organizar información administrativa y facilitar el seguimiento de tareas de gestión empresarial.
+## Tecnologías
 
-## Tecnologías documentadas
+- Python y Django
+- HTML, CSS, JavaScript y Bootstrap
+- Base de datos relacional
 
-Python, Django, HTML, CSS, JavaScript, Bootstrap y base de datos relacional.
+## Módulos del proyecto
 
-## Funcionalidades descritas
+- Usuarios y acceso al sistema
+- Registro de clientes
+- Proyectos y seguimiento
+- Presupuestos
 
-- Autenticación y usuarios.
-- Gestión de clientes.
-- Seguimiento de proyectos.
-- Gestión de presupuestos.
+Estos módulos corresponden al alcance documentado del proyecto. La configuración y el funcionamiento de cada uno deben revisarse en la versión actual.
 
-**Estado:** estas funciones están descritas en la documentación original; falta verificar cuáles están operativas en la versión actual. No se afirma que exista un despliegue público ni pruebas automatizadas completas.
+## Instalación
 
-## Qué demuestra
+La instalación local requiere Python, las dependencias del proyecto y una base de datos configurada. Los pasos específicos todavía están pendientes de comprobar, por lo que no incluyo comandos que no haya verificado.
 
-Organización de una aplicación Django, trabajo con modelos, vistas, formularios y procesos administrativos.
+## Estado
 
-## Pendientes para una demostración profesional
-
-1. Confirmar el motor de base de datos y los pasos reproducibles de instalación.
-2. Agregar capturas reales de las pantallas.
-3. Identificar funcionalidades terminadas y las que están en desarrollo.
-4. Registrar evidencias de pruebas.
-5. Revisar que no se publiquen credenciales ni datos personales.
-
-Repositorio de [Evelyn Leiva](https://github.com/Evelynleiva).
+Proyecto en revisión. Falta completar la documentación de instalación y agregar capturas de las pantallas.
